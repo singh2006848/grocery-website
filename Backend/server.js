@@ -12,9 +12,25 @@ const orderRoutes = require("./src/routes/order.routes");
 const app = express();
 
 // ✅ CORS (ONLY ONCE)
+const allowedOrigins = [
+  process.env.CLIENT_URL,
+  "http://127.0.0.1:5500",
+  "http://localhost:5500",
+  "http://127.0.0.1:3000",
+  "http://localhost:3000",
+].filter(Boolean);
+
 app.use(
   cors({
-    origin: "http://127.0.0.1:3000", // your frontend port
+    origin: function (origin, callback) {
+      // Allow requests with no origin (e.g., mobile apps, curl)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error(`CORS blocked: ${origin}`));
+      }
+    },
     credentials: true,
   })
 );
