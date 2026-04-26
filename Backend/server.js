@@ -23,13 +23,8 @@ const allowedOrigins = [
 app.use(
   cors({
     origin: function (origin, callback) {
-      // Allow requests with no origin (e.g., mobile apps, curl)
-      if (!origin) return callback(null, true);
-      if (allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error(`CORS blocked: ${origin}`));
-      }
+      // Allow requests from any origin dynamically to prevent Netlify CORS issues
+      callback(null, true);
     },
     credentials: true,
   })
