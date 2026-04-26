@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 const userModel = require("../models/user.model");
-const blockedTokenModel = require("../models/blockedToken.model");
+const blockedTokenModel = require("../models/Blockedtoken.model");
 
 // ─────────────────────────────────────────
 // AUTH MIDDLEWARE
